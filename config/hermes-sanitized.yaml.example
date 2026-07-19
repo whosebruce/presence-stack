@@ -1,0 +1,53 @@
+# Copy only the sections you choose into ~/.hermes/config.yaml.
+# Do not replace a live config wholesale. Secrets belong in ~/.hermes/.env or OAuth stores.
+
+model:
+  provider: openai-codex
+  default: gpt-5.6-sol
+
+agent:
+  image_input_mode: auto
+  tool_use_enforcement: auto
+
+approvals:
+  mode: smart
+  cron_mode: deny
+
+security:
+  redact_secrets: true
+  tirith_enabled: true
+  tirith_fail_open: false
+
+privacy:
+  redact_pii: true
+
+checkpoints:
+  enabled: true
+  max_snapshots: 20
+
+memory:
+  memory_enabled: true
+  user_profile_enabled: true
+  provider: honcho
+
+web:
+  search_backend: searxng
+  extract_backend: firecrawl
+
+auxiliary:
+  vision:
+    provider: openrouter
+    model: google/gemini-3.1-flash-lite
+    timeout: 120
+  web_extract:
+    provider: openrouter
+    model: google/gemini-3.1-flash-lite
+    timeout: 360
+
+mcp_servers:
+  composio:
+    url: https://connect.composio.dev/mcp
+    headers:
+      x-consumer-api-key: "${COMPOSIO_API_KEY}"
+    connect_timeout: 60
+    timeout: 180

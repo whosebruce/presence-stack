@@ -1,0 +1,40 @@
+# Secrets and owner-specific state
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+secrets/
+private/
+local-patterns.txt
+inventory.private.*
+enrollment.*
+honcho.json
+auth.json
+mcp-tokens/
+.presence-stack/
+
+# Generated/runtime data
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+build/
+dist/
+*.egg-info/
+reports/
+state/
+logs/
+presence-plan/
+*.db
+*.sqlite*
+
+# Editors/OS
+.DS_Store
+.idea/
+.vscode/

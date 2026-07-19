@@ -1,0 +1,15 @@
+{
+  "baseUrl": "http://127.0.0.1:8000",
+  "workspace": "presence-stack",
+  "peerName": "owner",
+  "hosts": {
+    "hermes": {
+      "enabled": true,
+      "aiPeer": "assistant",
+      "recallMode": "tools",
+      "writeFrequency": "async",
+      "saveMessages": true,
+      "sessionStrategy": "per-directory"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "current_channel": "telegram",
+  "audience": "mixed",
+  "organized_projects": true,
+  "apple_native": false,
+  "simplest_start": true,
+  "future_channel": "discord",
+  "source_types": ["videos", "writing", "documents"],
+  "first_outcome": "Prepare a daily priority brief and keep project questions organized while the owner is working elsewhere."
+}

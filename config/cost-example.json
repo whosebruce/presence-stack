@@ -1,0 +1,43 @@
+{
+  "name": "Proposed Presence Stack - July 2026",
+  "one_time": {
+    "hardware_refresh": 150.00,
+    "backup_drive": 150.00,
+    "ups": 125.00
+  },
+  "monthly_fixed": {
+    "chatgpt_pro_5x": 100.00,
+    "dedicated_phone_line": 20.00,
+    "offsite_backup": 5.00,
+    "domain_and_dns_allowance": 2.00
+  },
+  "openrouter": {
+    "initial_credits": 50.00,
+    "credit_purchase_fee_rate": 0.055,
+    "minimum_purchase_fee": 0.80,
+    "monthly_usage_budget": 25.00
+  },
+  "honcho": {
+    "ingestion_million_tokens_per_month": 1.0,
+    "ingestion_cost_per_million": 2.00,
+    "reasoning_queries_per_month": {
+      "minimal": 100,
+      "low": 100,
+      "medium": 10,
+      "high": 0,
+      "max": 0
+    },
+    "reasoning_cost_per_query": {
+      "minimal": 0.001,
+      "low": 0.01,
+      "medium": 0.05,
+      "high": 0.10,
+      "max": 0.50
+    }
+  },
+  "power": {
+    "average_watts": 65,
+    "electricity_usd_per_kwh": 0.35,
+    "uptime_fraction": 1.0
+  }
+}

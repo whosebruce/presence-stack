@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "presence-stack"
+version = "1.0.0"
+description = "Privacy-first deployment harness for a Hermes-based Presence Stack"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "Presence Stack contributors"}]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+]
+
+[project.scripts]
+presence-onboard = "presence_stack.onboard:main"
+presence-cost = "presence_stack.estimate:main"
+presence-recommend = "presence_stack.recommend:main"
+presence-doctor = "presence_stack.doctor:main"
+
+[tool.setuptools]
+packages = ["presence_stack"]
