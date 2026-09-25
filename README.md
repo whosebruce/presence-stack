@@ -2,7 +2,13 @@
 
 **A privacy-first, agent-readable deployment harness for turning a fresh Hermes Agent into an owner-controlled digital presence.**
 
-Repository: <https://github.com/whosebruce/presence-stack>
+Presence Stack is for someone who wants a capable personal agent (memory, research, files, app connections, messaging) without copying another person's setup or handing a public chatbot the keys. It is a staged build order, a set of module guides, sanitized example configs, and four small Python helpers that plan and check the work. The helpers never install anything; you or your agent do that one gated stage at a time.
+
+Status: v1.0.0, published July 2026. Model names and prices below are dated to that release.
+
+## Quick start
+
+Requires Python 3.10+. The helpers use only the standard library.
 
 ```bash
 git clone https://github.com/whosebruce/presence-stack.git
@@ -10,31 +16,13 @@ cd presence-stack
 python3 -m presence_stack.onboard
 ```
 
-Then give your agent [INSTALL_PROMPT.md](INSTALL_PROMPT.md). Agents that automatically read `AGENTS.md` will receive the installation contract and privacy boundaries directly.
+The onboarding asks about how you already communicate before it asks about software, and it collects no secrets. It writes `PLAN.md` and `plan.json` to `./presence-plan/` (gitignored). Use `--output-dir ~/.presence-stack/plan` to keep the plan with the rest of your private state, `--dry-run` to print it instead, or `--answers config/onboarding-example.json` to run from a JSON file.
 
-## What this gives you
-
-This repository documents and verifies the capability classes behind a mature Hermes setup:
-
-- current Hermes Agent install and secure defaults;
-- a strong primary model plus explicit fallback/budget policy;
-- OpenRouter-funded auxiliary vision;
-- self-hosted SearXNG search and Firecrawl extraction;
-- built-in memory, session search, skills, and optional Honcho;
-- daily durable-fact review without saving temporary noise;
-- Obsidian as a human-readable source of truth on a private SMB share;
-- Composio MCP with Google Workspace OAuth;
-- Open Design connected to Hermes, Claude Code, and Codex CLI;
-- durable `SOUL.md` identity and separate specialist profiles;
-- Discord, Telegram, Slack, CLI/Desktop, or optional BlueBubbles/iMessage;
-- cron, subagents, approvals, checkpoints, receipts, and verification;
-- hardware tiers from a small hosted-model box to a separate 24 GB VRAM local-AI host.
-
-It does **not** copy another person's accounts, API keys, configuration, messages, memories, Presence Profile, private network, authority rules, or trust history.
+Then give your agent [INSTALL_PROMPT.md](INSTALL_PROMPT.md). Agents that load `AGENTS.md` automatically get the installation contract and privacy boundaries directly; others should start with [AGENT_README.md](AGENT_README.md).
 
 ## The concept
 
-People say, “I vibe coded this app.” Presence Stack gives us language for a larger system:
+People say they "vibe coded" an app. Presence Stack names the larger system around a person:
 
 - **Presence Design** defines how a person should show up digitally: voice, values, knowledge, relationships, channels, boundaries, and decision rights.
 - A **Presence Designer** conducts discovery and turns owner-approved source material into an explicit, reviewable Presence Profile.
@@ -45,7 +33,7 @@ People say, “I vibe coded this app.” Presence Stack gives us language for a 
 
 The owner remains principal and accountable. The digital presence can research, prepare, communicate, and carry delegated work, but it acts only under written standing authority or owner sign-off.
 
-The phrase “Presence Engineering” has prior uses. This project does not claim to have invented the words. Its contribution is a practical, whole-person, owner-controlled stack. See the dated [category landscape](docs/CATEGORY_LANDSCAPE-2026-07.md).
+The phrase "Presence Engineering" has prior uses. This project does not claim to have invented the words. Its contribution is a practical, whole-person, owner-controlled stack. See the dated [category landscape](docs/CATEGORY_LANDSCAPE-2026-07.md).
 
 ## A second brain remembers. A presence acts.
 
@@ -65,116 +53,83 @@ Owner-approved sources + current corrections
 
 A channel is only an interface. The durable identity stays portable across Telegram, Discord, Slack, iMessage, CLI/Desktop, and future channels.
 
-## Start with questions, not software
+The repository does **not** copy another person's accounts, API keys, configuration, messages, memories, Presence Profile, private network, authority rules, or trust history.
 
-A newcomer should not need to know what Hermes, Honcho, MCP, Firecrawl, or an API key is.
+## Helper commands
 
-```bash
-python3 -m presence_stack.onboard
-```
+| Command | What it does |
+| --- | --- |
+| `python3 -m presence_stack.onboard` | Plain-language interview that recommends a first channel, flags when a public receptionist boundary is needed, and writes a starter Presence Plan |
+| `python3 -m presence_stack.estimate config/cost-example.json` | One-time, monthly, and first-year cost estimate from a JSON worksheet (OpenRouter credits, Honcho usage, electricity, fixed items) |
+| `python3 -m presence_stack.recommend config/hardware-example.json` | Suggests a starting architecture from sanitized hardware facts, with warnings and deferred services |
+| `python3 -m presence_stack.doctor` | Readiness report for Python, Git, Hermes, optional tools, Hermes config, and optional service settings; reports whether a key is set, never its value |
 
-The onboarding begins with ordinary questions:
+`estimate` and `recommend` accept `--json`. `doctor` accepts `--json` and `--strict` (non-zero exit when a required check is not ready). After `pip install -e .` the same tools are available as `presence-onboard`, `presence-cost`, `presence-recommend`, and `presence-doctor`.
 
-1. Where do you already spend communication time?
-2. Who should interact with the presence first?
-3. Do you need one conversation or projects/channels/threads?
-4. What should become easier in the first 30 days?
-5. Which videos, writing, audio, and documents may be studied?
-6. What may the system prepare, do under standing authority, pause for sign-off, or never do?
-7. What evidence must return after an action?
+## Three ways in
 
-Use the written [Presence Intake](forms/PRESENCE_INTAKE.md) for a longer private interview.
+**Fresh agent or operator.** Clone the repository, paste [INSTALL_PROMPT.md](INSTALL_PROMPT.md) into the new agent, and let it read [AGENTS.md](AGENTS.md). It should ask one question at a time, get your approval for each module, and show real verification after every stage.
 
-## Fast paths
+**Human installing by hand.** Read the [build order](docs/BUILD_ORDER.md), [requirements](docs/REQUIREMENTS.md), [security](docs/SECURITY.md), and the [Hermes supercharge guide](docs/HERMES_SUPERCHARGE.md), then only the module guides you need, then [verification](docs/VERIFICATION.md). For a longer private interview, use the written [Presence Intake](forms/PRESENCE_INTAKE.md).
 
-### 1. Fresh agent/operator
+**Existing Hermes user.** Run `python3 -m presence_stack.doctor` and use the report to choose missing modules. Do not replace a live `config.yaml` wholesale.
 
-1. Clone the repository.
-2. Copy [INSTALL_PROMPT.md](INSTALL_PROMPT.md) into the new agent.
-3. Let it read [AGENTS.md](AGENTS.md).
-4. Answer one question at a time.
-5. Approve modules in stages.
-6. Require real verification after every stage.
+## Build order
 
-### 2. Human installing manually
+Each stage is a gate: prove it works before moving on. Full commands are in [docs/BUILD_ORDER.md](docs/BUILD_ORDER.md).
 
-Read:
+| Stage | Gate |
+| --- | --- |
+| 0 | Owner design: intake, source permissions, and decision rights |
+| 1 | Hardware/OS inventory and one tested restore |
+| 2 | Base Hermes install, `hermes doctor`, and one successful chat |
+| 3 | Secure defaults: secret redaction, smart approvals, checkpoints, least-privilege tools |
+| 4 | One private owner channel with pairing/allowlist and unknown-user denial |
+| 5 | Continuity: built-in memory and session search, optional Honcho |
+| 6 | Research: SearXNG search and Firecrawl extraction (optional) |
+| 7 | Durable files: Obsidian on a private SMB share (optional) |
+| 8 | Action and creation tools: Composio/Google Workspace, Open Design and coding agents, specialist profiles (optional) |
+| 9 | One bounded Presence Loop that returns evidence |
+| 10 | Operational acceptance: reboot, restore, spend limits, privacy, unknown-user denial |
 
-1. [Build order](docs/BUILD_ORDER.md)
-2. [Requirements](docs/REQUIREMENTS.md)
-3. [Security](docs/SECURITY.md)
-4. [Hermes supercharge guide](docs/HERMES_SUPERCHARGE.md)
-5. The module guides you actually need
-6. [Verification](docs/VERIFICATION.md)
-
-### 3. Existing Hermes user
-
-Run:
-
-```bash
-python3 -m presence_stack.doctor
-```
-
-It reports command/configuration presence without displaying secret values. Use the report to choose missing modules; do not replace a live `config.yaml` wholesale.
-
-## Recommended build order
-
-1. Presence intake, source permissions, channel, and decision rights.
-2. Hardware/network/storage inventory and tested backup.
-3. Base Hermes, model login, `hermes doctor`, and one successful chat.
-4. Secret redaction, smart approvals, checkpoints, and least-privilege tools.
-5. One private owner channel with allowlist/pairing.
-6. Built-in memory and session search.
-7. Optional Honcho.
-8. Optional SearXNG + Firecrawl.
-9. Optional Obsidian/SMB.
-10. Optional Composio/Google Workspace and Open Design/coding agents.
-11. Optional specialist profiles.
-12. One bounded Presence Loop with evidence.
-13. Reboot, restore, spend-limit, privacy, and unknown-user-denial tests.
-
-Full sequence: [docs/BUILD_ORDER.md](docs/BUILD_ORDER.md).
-
-## Capability modules
+## Module guides
 
 | Module | Guide | Required? |
-|---|---|---|
+| --- | --- | --- |
 | Sanitized capability map | [REFERENCE_STACK.md](docs/REFERENCE_STACK.md) | Read first |
-| Hardware/OS tiers | [REQUIREMENTS.md](docs/REQUIREMENTS.md) | Yes |
-| Models, OpenRouter, budget | [MODELS_AND_BUDGET.md](docs/MODELS_AND_BUDGET.md) | Yes |
+| Hardware/OS tiers | [REQUIREMENTS.md](docs/REQUIREMENTS.md), [SIZING.md](docs/SIZING.md) | Yes |
+| Models, OpenRouter, budget | [MODELS_AND_BUDGET.md](docs/MODELS_AND_BUDGET.md), [COSTS-2026-07.md](docs/COSTS-2026-07.md) | Yes |
 | Hermes safety/tools | [HERMES_SUPERCHARGE.md](docs/HERMES_SUPERCHARGE.md) | Yes |
+| Channel selection/migration | [CHANNEL_CHOOSER.md](docs/CHANNEL_CHOOSER.md) | Yes |
+| Presence Profile method | [PRESENCE_DESIGN.md](docs/PRESENCE_DESIGN.md) | Yes |
+| Security boundaries | [SECURITY.md](docs/SECURITY.md) | Yes |
+| Acceptance tests | [VERIFICATION.md](docs/VERIFICATION.md) | Yes |
 | SearXNG + Firecrawl | [WEB_RESEARCH.md](docs/WEB_RESEARCH.md) | Optional |
 | Honcho + daily facts | [MEMORY_HONCHO.md](docs/MEMORY_HONCHO.md) | Optional |
 | Obsidian + SMB | [OBSIDIAN_SMB.md](docs/OBSIDIAN_SMB.md) | Optional |
 | Composio + Google | [COMPOSIO_GOOGLE.md](docs/COMPOSIO_GOOGLE.md) | Optional |
 | Open Design + coding CLIs | [OPEN_DESIGN_CODING_AGENTS.md](docs/OPEN_DESIGN_CODING_AGENTS.md) | Optional |
 | Personalities + profiles | [PERSONALITIES_PROFILES.md](docs/PERSONALITIES_PROFILES.md) | Optional |
-| Channel selection/migration | [CHANNEL_CHOOSER.md](docs/CHANNEL_CHOOSER.md) | Yes |
-| Presence Profile method | [PRESENCE_DESIGN.md](docs/PRESENCE_DESIGN.md) | Yes |
-| Security boundaries | [SECURITY.md](docs/SECURITY.md) | Yes |
-| Acceptance tests | [VERIFICATION.md](docs/VERIFICATION.md) | Yes |
 
-## Minimum hardware
+## Hardware tiers
 
 | Tier | CPU | RAM | Disk | Use |
-|---|---:|---:|---:|---|
+| --- | ---: | ---: | ---: | --- |
 | Minimum Hermes | 2 cores | 4 GB | 20 GB | hosted model, light CLI/gateway |
 | Comfortable personal stack | 4 cores | 8–16 GB | 50–100 GB | Hermes, SearXNG, integrations, light profiles |
 | Reference-class orchestrator | 8 cores | 24–32 GB | 100+ GB | profiles, Firecrawl, Open Design, builds/browser |
 | Optional local-AI/media host | 8–16 cores | 32–64+ GB | 1 TB+ | local models/STT/media; 16–24+ GB VRAM recommended |
 
-The reference orchestration VM is approximately 8 vCPU, 24 GB RAM, and a 100 GB system disk. A separate 24 GB VRAM host handles optional local workloads. The primary model is hosted, so a GPU is not required for most functions.
+The reference orchestration VM is about 8 vCPU, 24 GB RAM, and a 100 GB system disk. A separate 24 GB VRAM host handles optional local workloads. The primary model is hosted, so a GPU is not required for most functions. Details: [docs/REQUIREMENTS.md](docs/REQUIREMENTS.md).
 
-Details: [docs/REQUIREMENTS.md](docs/REQUIREMENTS.md).
+## Model pattern
 
-## Recommended model pattern
-
-- **Primary:** strongest current OpenAI Codex tool-calling model available through the owner's OAuth account. At this release, the reference uses GPT-5.6 Sol.
-- **Vision:** Gemini 3.1 Flash Lite through OpenRouter, or the current equivalent shown by the provider.
+- **Primary:** the strongest OpenAI Codex tool-calling model available through the owner's own OAuth account. At the v1.0.0 release that was GPT-5.6 Sol.
+- **Vision:** Gemini 3.1 Flash Lite through OpenRouter, or the current equivalent the provider lists.
 - **OpenRouter:** optional starter credit around **$50**, protected by a hard spend cap and alert.
-- **Fallbacks:** explicit, tested, and separately capped—never silent uncontrolled spend.
+- **Fallbacks:** explicit, tested, and separately capped. Never silent, uncontrolled spend.
 
-Model catalogs and prices change. Use `hermes model` and official provider pages rather than treating this README as a permanent catalog.
+Model catalogs and prices change. Use `hermes model` and the official provider pages rather than treating this README as a catalog.
 
 ## Private state stays private
 
@@ -192,7 +147,7 @@ Recommended owner-private root:
 └── change-log/
 ```
 
-Hermes credentials stay in Hermes' own `.env`/auth/MCP token stores. This repository ignores real enrollment, secrets, inventories, databases, logs, reports, and generated Presence Plans.
+Hermes credentials stay in Hermes' own `.env`/auth/MCP token stores. [.env.example](.env.example) lists the variable names the doctor looks for; fill a copy under `~/.presence-stack/`, never in the repository. `.gitignore` excludes real enrollment files, secrets, inventories, databases, logs, reports, and generated Presence Plans.
 
 ## Public receptionist boundary
 
@@ -205,15 +160,15 @@ Unknown sender
   → private Hermes performs only the narrow approved action
 ```
 
-Unknown users must never enter the same full-power agent that can read private files, run shell commands, send arbitrary messages, administer accounts, or make payments.
+Unknown users must never enter the same full-power agent that can read private files, run shell commands, send arbitrary messages, administer accounts, or make payments. [Local-First AI Receptionist](https://github.com/whosebruce/local-first-ai-receptionist) is one implementation of this boundary.
 
 ## Included examples
 
-- [sanitized Hermes config sections](config/hermes-sanitized.yaml.example)
-- [self-hosted Honcho shape](config/honcho-selfhost.example.json)
-- [generic SOUL template](templates/SOUL.md.example)
-- [loopback SearXNG Compose](deploy/searxng/compose.yaml)
-- onboarding, cost, and hardware example JSON
+- [Sanitized Hermes config sections](config/hermes-sanitized.yaml.example)
+- [Self-hosted Honcho shape](config/honcho-selfhost.example.json)
+- [Generic SOUL template](templates/SOUL.md.example)
+- [Loopback SearXNG Compose](deploy/searxng/compose.yaml)
+- [Onboarding answers](config/onboarding-example.json), [cost worksheet](config/cost-example.json), and [hardware facts](config/hardware-example.json) for the helpers
 
 Examples contain no working credentials and must be adapted locally.
 
@@ -226,7 +181,7 @@ python3 scripts/privacy_scan.py
 python3 -m presence_stack.doctor
 ```
 
-The privacy scanner checks the working tree and, once Git exists, the exact index and reachable history. Operator-specific markers belong in gitignored `local-patterns.txt`.
+`verify_repo.py` checks required files and that every local Markdown link resolves. The privacy scanner checks the working tree, the exact Git index, and reachable history, and prints category, file, and line only. Operator-specific markers belong in a gitignored `local-patterns.txt`, one literal per line. GitHub Actions runs the tests, the three example helper runs, `doctor --json`, and both scripts on every push and pull request.
 
 ## Non-goals
 
@@ -242,4 +197,4 @@ The privacy scanner checks the working tree and, once Git exists, the exact inde
 
 ## License
 
-MIT. See [LICENSE](LICENSE).
+MIT. See [LICENSE](LICENSE). Maintained by [@whosebruce](https://github.com/whosebruce).
